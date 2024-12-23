@@ -1,0 +1,76 @@
+﻿@model CTDT.Models.TbNgonNguGiangDay
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Home/Index">Home </a></li>
+                        <li class="breadcrumb-item"><a href="/NgonNguGiangDay/Index">Index </a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section id="multiple-column-form">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header  bg-primary text-white text-center ">
+                        <h4 class="card-title">NGÔN NGỮ GIẢNG DẠY</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form asp-action="Edit" id="form">
+                                <div class="row">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input type="hidden" asp-for="IdNgonNguGiangDay" />
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label asp-for="IdChuongTrinhDaoTao" class="control-label"></label>
+                                            <select asp-for="IdChuongTrinhDaoTao" class ="form-control" asp-items="ViewBag.IdChuongTrinhDaoTao"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label asp-for="IdNgonNgu" class="control-label"></label>
+                                            <select asp-for="IdNgonNgu" class ="form-control" asp-items="ViewBag.IdNgonNgu"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label asp-for="IdTrinhDoNgonNguDauVao" class="control-label"></label>
+                                            <select asp-for="IdTrinhDoNgonNguDauVao" class ="form-control" asp-items="ViewBag.IdTrinhDoNgonNguDauVao"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between align-items-center">
+                                        <a asp-action="Index" class="btn btn-secondary btn-lg shadow-sm" data-bs-toggle="tooltip" title="Quay lại trang danh sách">
+                                            <i class="bi bi-arrow-left-circle"></i> Quay lại
+                                        </a>
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Xác nhận</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.jsdelivr.net/gh/kirito99152/search_select@latest/search_select.js"></script>
+    <script>
+        let select = new search_select("form");
+        select.IsNULL = true;
+        select.run();
+    </script>
+}

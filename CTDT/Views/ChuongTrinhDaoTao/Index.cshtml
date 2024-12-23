@@ -1,0 +1,344 @@
+@model IEnumerable<CTDT.Models.TbChuongTrinhDaoTao>
+@{
+    ViewData["Title"] = "Index";
+    int dem = 0;
+}
+
+@section Heads {
+    <link href="~/lib/datatable/datatables.css" rel="stylesheet">
+}
+<style>
+    .d-flex {
+        display: flex;
+        align-items: center; /* Canh giữa theo chiều dọc */
+        gap: 10px; /* Khoảng cách giữa các phần tử */
+    }
+
+    .form-select {
+        width: auto; /* Đặt độ rộng tự động cho `select` */
+    }
+
+    button#showChart {
+        white-space: nowrap; /* Đảm bảo nút không xuống dòng */
+    }
+
+</style>
+
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Home/Index">Home </a></li>
+                        <li class="breadcrumb-item"><a href="/ChuongTrinhDaoTao/chartjs">Biểu đồ</a></li>
+
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title" style="text-align:center">
+                   CHƯƠNG TRÌNH ĐÀO TẠO
+                </h5>
+            </div>
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            
+            <div class="card-body">
+                <table class="table table-striped nowrap table-hover " id="views" style="table-layout: auto; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>
+                                Mã Chương Trình Đào Tạo
+                            </th>
+                            <th>
+                                Tên Chương Trình
+                            </th>
+                            <th>
+                                Tên Chương Trình Bằng Tiếng Anh
+                            </th>
+                            <th>
+                                Năm Bắt Đầu Tuyển Sinh
+                            </th>
+                            <th>
+                                Tên Cơ Sở Đào Tạo Nước Ngoài
+                            </th>
+                            <th>
+                                Địa Điểm Đào Tạo
+                            </th>
+                            <th>
+                               Ngày Ban Hành Chuẩn Đầu Ra
+                            </th>
+                            <th>
+                                Thời Gian Đào Tạo Chuẩn
+                            </th>
+                            <th>
+                                Chuẩn Đầu Ra
+                            </th>
+                            <th>
+                                Loại Chứng Chỉ Được Chấp Thuận
+                            </th>
+                            <th>
+                                Đơn Vị Thực Hiện Chương Trình
+                            </th>
+                            <th>
+                                Chuẩn Đầu Ra Về Ngoại Ngữ
+                            </th>
+                            <th>
+                                Chuẩn Đầu Ra Về Tin Học
+                            </th>
+                            <th>
+                                Học Phí Tại Việt Nam
+                            </th>
+                            <th>
+                                Học Phí Tại Nước Ngoài
+                            </th>
+                            <th>
+                                ID Đơn Vị Cấp Bằng
+                            </th>
+                            <th>
+                                ID Học Chế Đào Tạo
+                            </th>
+                            <th>
+                                ID Loại Chương Trình Đào Tạo
+                            </th>
+                            <th>
+                                ID Loại Chương Trình Liên Kết Đào Tạo
+                            </th>
+                            <th>
+                             ID Ngành Đào Tạo
+                            </th>
+                            <th>
+                                ID Quốc Gia Của Trụ Sở Chính
+                            </th>
+                            <th>
+                              ID Trạng Thái Của Chương Trình
+                            </th>
+                            <th>
+                                ID Trình Độ Đào Tạo
+                            </th>
+                            <th>
+                                Action
+                              
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@(++dem)</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MaChuongTrinhDaoTao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TenChuongTrinh)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TenChuongTrinhBangTiengAnh)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NamBatDauTuyenSinh)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TenCoSoDaoTaoNuocNgoai)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DiaDiemDaoTao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NgayBanHanhChuanDauRa)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ThoiGianDaoTaoChuan)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChuanDauRa)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LoaiChungChiDuocChapThuan)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DonViThucHienChuongTrinh)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChuanDauRaVeNgoaiNgu)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChuanDauRaVeTinHoc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HocPhiTaiVietNam)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HocPhiTaiNuocNgoai)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdDonViCapBangNavigation.DonViCapBang)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdHocCheDaoTaoNavigation.HocCheDaoTao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdLoaiChuongTrinhDaoTaoNavigation.LoaiChuongTrinhDaoTao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdLoaiChuongTrinhLienKetDaoTaoNavigation.LoaiChuongTrinhLienKetDaoTao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdNganhDaoTaoNavigation.NganhDaoTao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdQuocGiaCuaTruSoChinhNavigation.TenNuoc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdTrangThaiCuaChuongTrinhNavigation.TrangThaiChuongTrinhDaoTao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdTrinhDoDaoTaoNavigation.TrinhDoDaoTao)
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-primary" onclick="window.location.href = '@Url.Action("Edit", new {id = item.IdChuongTrinhDaoTao})'" data-bs-toggle="tooltip" title="Sửa"><i class="fa-sharp-duotone fa-solid fa-user-pen"></i> </button>
+                                    <button class="btn btn-outline-primary" onclick="window.location.href = '@Url.Action("Details", new {id = item.IdChuongTrinhDaoTao})'" data-bs-toggle="tooltip" title="Chi tiết"><i class="fa-sharp fa-solid fa-circle-info"></i> </button>
+                                    <button class="btn btn-outline-danger "
+                                            onclick="window.location.href = '@Url.Action("Delete", new { id = item.IdChuongTrinhDaoTao })'" data-bs-toggle="tooltip" title="Xoá">
+                                        <i class="fa-sharp fa-solid fa-trash"></i>
+                                        <span></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="~/lib/datatable/datatables.js"></script>
+    <script src="~/js/import_excel.js"></script>
+    <script src="~/js/xlsx.full.min.js"></script>
+    <script src="https://kit.fontawesome.com/5c202d0407.js" crossorigin="anonymous"></script>
+    <script>
+
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+
+
+        //Datatable trong datatable.net. Tìm hiểu thêm thông tin: https://datatables.net/manual/
+        var table = new DataTable("#views", {
+            columnDefs: [
+                {
+                    orderable: false,
+                    targets: '._nonorder'
+                }
+            ],
+            order: [0, 'asc'],
+            fixedColumns: {
+                left: 1,   
+                right: 1  
+            },
+            scrollX: true,
+            pageLength: 10,
+            language: {
+                //Điều chỉnh phần hiển thị label của thanh tìm kiếm - Xem thêm thông tin: https://datatables.net/reference/option/language.search
+                search: "Tìm kiếm",
+                //Điều chỉnh phần hiển thị thông tin của table - Xem thêm thông tin: https://datatables.net/reference/option/language.info
+                info: "Tổng cộng _TOTAL_ bản ghi",
+                zeroRecords: "Không tìm thấy bản ghi nào"
+
+            },
+            createdRow: (row, data, index) => {
+            },
+            layout: {//Layout: https://datatables.net/examples/layout/index.html
+                topStart: {
+                    buttons: [//extension buttons: https://datatables.net/extensions/buttons/config
+                        {
+                            className: 'btn btn-primary', //Thêm class cho button
+                            text: 'Thêm mới',
+                            action: function (e, dt, node, config) {//Hành động của button
+                                window.location.href = '@Url.Action("Create")';
+                            }
+                        },
+                        {
+                            extend: "excel",
+                            className: 'btn btn-primary', //Thêm class cho button
+                            text: 'Xuất excel',
+                            exportOptions: {
+                                columns: function (idx, data, node) {
+                                    if (node.classList.contains("_nonorder")) return false;
+                                    return true;
+                                },
+                            }
+                        },
+                        // {
+                        //     className: 'btn btn-primary', //Thêm class cho button
+                        //     text: 'Import Excel',
+                        //     action: function (e, dt, node, config) {//Hành động của button
+                        //         import_excel((json) => {
+                        //             let data = JSON.parse(json);
+                        //             let list;
+                        //             for (const [key, value] of Object.entries(data)) {
+                        //                 list = value;
+                        //             }
+                        //             let _ExcelNoSheet = [];
+                        //             for (let i = 0; i < list.length; ++i) {
+                        //                 let arr = [];
+                        //                 for (const [key, value] of Object.entries(list[i])) {
+                        //                     arr.push(value.toString());
+                        //                 }
+                        //                 _ExcelNoSheet.push(arr);
+                        //             }
+                        //             let _json = JSON.stringify(_ExcelNoSheet, null, 4);
+                        //             console.log(_json);
+                        //             var fd = new FormData();
+                        //             fd.append("jsonExcel", _json);
+                        //             $.ajax({
+                        //                 method: "POST",
+                        //                 url: "/ChuongTrinhDaoTao/Receive_Excel",
+                        //                 data: fd,
+                        //                 processData: false,
+                        //                 contentType: false,
+                        //                 complete: (xhr, status) => {
+                        //                     if (status == "success") {
+                        //                         console.log(xhr.responseJSON.value['msg']);
+                        //                     } else alert(xhr.responseJSON.value['msg']);
+                        //                 }
+                        //             });
+                        //         });
+                        //     }
+                        // }
+                    ]
+                }
+            }
+        });
+             table.buttons().container()
+                    .append(`
+                                <form asp-action="Index" asp-controller="ChuongTrinhDaoTao" method="post" enctype="multipart/form-data" class="d-flex align-items-center">
+                                     <input type="file" name="file" class="form-control me-2" style="width: auto;" />
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </form>
+                    `);
+    </script>
+}

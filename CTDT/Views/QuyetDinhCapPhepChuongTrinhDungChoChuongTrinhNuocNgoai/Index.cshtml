@@ -1,0 +1,234 @@
+@model IEnumerable<CTDT.Models.TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai>
+
+@{
+    ViewData["Title"] = "Index";
+    int dem = 0;
+}
+
+@section Heads {
+    <link href="~/lib/datatable/datatables.css" rel="stylesheet">
+}
+<style>
+    .d-flex {
+        display: flex;
+        align-items: center; /* Canh giữa theo chiều dọc */
+        gap: 10px; /* Khoảng cách giữa các phần tử */
+    }
+
+    .form-select {
+        width: auto; /* Đặt độ rộng tự động cho `select` */
+    }
+
+    button#showChart {
+        white-space: nowrap; /* Đảm bảo nút không xuống dòng */
+    }
+    
+</style>
+@* =======
+    >>>>>>> 16f88d5ef303afc3d25c283cb4c60b1614b05347 *@
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Home/Index">Home </a></li>
+                        <li class="breadcrumb-item"><a href="/QuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai/chartjs">Biểu đồ</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title" style="text-align:center">
+                   QUYẾT ĐỊNH CẤP PHÉP CHƯƠNG TRÌNH DÙNG CHO CHƯƠNG TRÌNH NƯỚC NGOÀI
+
+                </h5>
+            </div>
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            
+            
+            
+
+            <div class="card-body">
+                <table class="table table-striped nowrap table-hover" id="views">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>
+                                Số Quyết Định
+                            </th>
+                            <th>
+                                Ngày Ban Hành Quyết Định
+                            </th>
+                            <th>
+                                ID Chương Trình Đào Tạo
+                            </th>
+                            <th>
+                               ID Hình Thức Đào Tạo
+                            <th>
+                                ID Loại Quyết Định
+                            </th>
+                            <th class="_nonorder" style=" position: relative;">
+                                Action
+                                <span style="visibility: hidden;">dwadwadawdwa</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@(++dem)</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SoQuyetDinh)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NgayBanHanhQuyetDinh)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdChuongTrinhDaoTaoNavigation.TenChuongTrinh)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdHinhThucDaoTaoNavigation.HinhThucDaoTao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdLoaiQuyetDinhNavigation.LoaiQuyetDinh)
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-primary" onclick="window.location.href = '@Url.Action("Edit", new {id = item.IdQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai})'" data-bs-toggle="tooltip" title="Sửa"><i class="fa-sharp-duotone fa-solid fa-user-pen"></i> </button>
+                                    <button class="btn btn-outline-primary" onclick="window.location.href = '@Url.Action("Details", new {id = item.IdQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai})'" data-bs-toggle="tooltip" title="Chi tiết"><i class="fa-sharp fa-solid fa-circle-info"></i> </button>
+                                    <button class="btn btn-outline-danger "
+                                            onclick="window.location.href = '@Url.Action("Delete", new { id = item.IdQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai })'" data-bs-toggle="tooltip" title="Xoá">
+                                        <i class="fa-sharp fa-solid fa-trash"></i>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+ @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="~/lib/datatable/datatables.js"></script>
+    <script src="~/js/import_excel.js"></script>
+    <script src="~/js/xlsx.full.min.js"></script>
+    <script src="https://kit.fontawesome.com/5c202d0407.js" crossorigin="anonymous"></script>
+    <script>
+        //Datatable trong datatable.net. Tìm hiểu thêm thông tin: https://datatables.net/manual/
+        var table = new DataTable("#views", {
+            columnDefs: [
+                {
+                    orderable: false,
+                    targets: '._nonorder'
+                }
+            ],
+            order: [0, 'asc'],
+            fixedColumns: {
+                end: 1
+            },
+            scrollX: true,
+            pageLength: 10,
+            language: {
+                //Điều chỉnh phần hiển thị label của thanh tìm kiếm - Xem thêm thông tin: https://datatables.net/reference/option/language.search
+                search: "Tìm kiếm",
+                //Điều chỉnh phần hiển thị thông tin của table - Xem thêm thông tin: https://datatables.net/reference/option/language.info
+                info: "Tổng cộng _TOTAL_ bản ghi",
+                zeroRecords: "Không tìm thấy bản ghi nào"
+
+            },
+            createdRow: (row, data, index) => {
+            },
+            layout: {//Layout: https://datatables.net/examples/layout/index.html
+                topStart: {
+                    buttons: [//extension buttons: https://datatables.net/extensions/buttons/config
+                        {
+                            className: 'btn btn-primary', //Thêm class cho button
+                            text: 'Thêm mới',
+                            action: function (e, dt, node, config) {//Hành động của button
+                                window.location.href = '@Url.Action("Create")';
+                            }
+                        },
+                        {
+                            extend: "excel",
+                            className: 'btn btn-primary', //Thêm class cho button
+                            text: 'Xuất excel',
+                            exportOptions: {
+                                columns: function (idx, data, node) {
+                                    if (node.classList.contains("_nonorder")) return false;
+                                    return true;
+                                },
+                            }
+                        },
+                        // {
+                        //     className: 'btn btn-primary', //Thêm class cho button
+                        //     text: 'Import Excel',
+                        //     action: function (e, dt, node, config) {//Hành động của button
+                        //         import_excel((json) => {
+                        //             let data = JSON.parse(json);
+                        //             let list;
+                        //             for (const [key, value] of Object.entries(data)) {
+                        //                 list = value;
+                        //             }
+                        //             let _ExcelNoSheet = [];
+                        //             for (let i = 0; i < list.length; ++i) {
+                        //                 let arr = [];
+                        //                 for (const [key, value] of Object.entries(list[i])) {
+                        //                     arr.push(value.toString());
+                        //                 }
+                        //                 _ExcelNoSheet.push(arr);
+                        //             }
+                        //             let _json = JSON.stringify(_ExcelNoSheet, null, 4);
+                        //             console.log(_json);
+                        //             var fd = new FormData();
+                        //             fd.append("jsonExcel", _json);
+                        //             $.ajax({
+                        //                 method: "POST",
+                        //                 url: "/QuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai/Receive_Excel",
+                        //                 data: fd,
+                        //                 processData: false,
+                        //                 contentType: false,
+                        //                 complete: (xhr, status) => {
+                        //                     if (status == "success") {
+                        //                         console.log(xhr.responseJSON.value['msg']);
+                        //                     } else alert(xhr.responseJSON.value['msg']);
+                        //                 }
+                        //             });
+                        //         });
+                        //     }
+                        // }
+                    ]
+                }
+            }
+            
+        });
+
+
+                table.buttons().container()
+            .append(`
+                        <form asp-action="Index" asp-controller="QuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai" method="post" enctype="multipart/form-data" class="d-flex align-items-center">
+                             <input type="file" name="file" class="form-control me-2" style="width: auto;" />
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
+            `);
+    </script>
+}
+

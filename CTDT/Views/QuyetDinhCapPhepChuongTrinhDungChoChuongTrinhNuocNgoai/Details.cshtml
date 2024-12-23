@@ -1,0 +1,104 @@
+@model CTDT.Models.TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/QuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai/Index">Index</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="row match-height justify-content-center">
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="card-title"> QUYẾT ĐỊNH CẤP PHÉP CHƯƠNG TRÌNH DÙNG CHO CHƯƠNG TRÌNH NƯỚC NGOÀI</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped table-hover">
+                                <tbody>
+                                    <tr>
+                                        <th class="col-sm-5">Số Quyết Định</th>
+                                        <td class="col-sm-6">@Html.DisplayFor(model => model.SoQuyetDinh)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày Ban Hành Quyết Định</th>
+                                        <td>@Html.DisplayFor(model => model.NgayBanHanhQuyetDinh)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ID Chương Trình Đào Tạo</th>
+                                        <td>@Html.DisplayFor(model => model.IdChuongTrinhDaoTaoNavigation.IdChuongTrinhDaoTao)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ID Hình Thức Đào Tạo</th>
+                                        <td>@Html.DisplayFor(model => model.IdHinhThucDaoTaoNavigation.IdHinhThucDaoTao)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ID Loại Quyết Định</th>
+                                        <td>@Html.DisplayFor(model => model.IdLoaiQuyetDinhNavigation.IdLoaiQuyetDinh)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-12 d-flex justify-content-start gap-2">
+                                <button class="btn btn-outline-primary" onclick="window.location.href = '@Url.Action("Edit", new {id = Model.IdQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai})'">
+                                    <i class="fa-sharp-duotone fa-solid fa-user-pen"></i> Sửa
+                                </button>
+                                <button class="btn btn-outline-primary" onclick="window.location.href = '@Url.Action("Index")'">
+                                    <i class="fa-sharp fa-solid fa-circle-info"></i> Quay lại
+                                </button>
+                                <button type="button" class="btn btn-outline-danger block" data-bs-toggle="modal" data-bs-target="#deletemodal">
+                                    Xoá
+                                </button>
+                                <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle">Xác nhận</h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <i data-feather="x"></i>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Bạn muốn xóa?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form asp-action="Delete">
+                                                    <input type="hidden" asp-for="IdChuongTrinhDaoTao" />
+                                                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">Close</span>
+                                                    </button>
+                                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    .table-hover tbody tr:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+</style>

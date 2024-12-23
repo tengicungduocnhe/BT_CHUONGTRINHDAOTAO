@@ -1,0 +1,122 @@
+﻿@model CTDT.Models.TbChuongTrinhDaoTao
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-dy+Dvhgi7KkKbP4qxFqDncdchCRO1GfBPOIQFxDb/WIOVQ5SWEphI8MNsxF9auhgGChlpS+nfsP24i7IbxNwOQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .table-container {
+            overflow-x: auto; /* Cuộn ngang khi nội dung bảng vượt quá container */
+            width: 100%; /* Chiếm toàn bộ chiều rộng container cha */
+        }
+
+        table {
+            width: max-content; /* Đảm bảo bảng chỉ rộng vừa đủ nội dung */
+            border-collapse: collapse;
+        }
+
+
+        td, th {
+            border: 1px solid #dddddd; /* Đường viền của các ô bảng màu xám nhạt */
+            text-align: center; /* Căn giữa nội dung trong các ô */
+            padding: 8px; /* Đặt khoảng cách giữa nội dung và viền ô */
+        }
+
+        tr:nth-child(even) {
+            background-color: white; /* Màu nền của hàng chẵn trong bảng */
+        }
+
+        thead th {
+            white-space: nowrap; /* Đảm bảo nội dung không xuống dòng trong ô header */
+            text-align: center; /* Căn giữa nội dung header */
+        }
+
+        h1.a {
+            font-family: "Audiowide", sans-serif; /* Sử dụng font Audiowide */
+            text-shadow: 3px 3px 3px #ababab; /* Đổ bóng cho chữ */
+        }
+
+        h1 {
+            font-size: 45px; /* Đặt kích thước font lớn cho h1 */
+            color: red;
+        }
+        
+
+    </style>
+
+</head>
+<body>
+    <div class="container p-5 my-5 border bg-white shadow-sm">
+        <h5 class="card-title" style="text-align:center">
+            CHƯƠNG TRÌNH ĐÀO TẠO
+
+        </h5>
+        <h1 class="a" style="text-align:center">Xóa</h1>
+        <hr />
+        <div style=" white-space: nowrap; border: 1px solid #ddd;">
+            <table class="table table-striped" style="width: max-content; min-width: 100%;">
+            <thead style="background-color:#dddddd">
+                <tr>
+                    <th>
+                        Mã Chương Trình Đào Tạo
+                    </th>
+                    <th>
+                        Tên Chương Trình
+                    </th>
+                    <th>
+                        Tên Chương Trình Bằng Tiếng Anh
+                    </th>
+                    <th>
+                        Năm Bắt Đầu Tuyển Sinh
+                    </th>
+                    <th>
+                        Tên Cơ Sở Đào Tạo Nước Ngoài
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background-color:white">
+                    <td>
+                        @Model.MaChuongTrinhDaoTao
+                    </td>
+                    <td>
+                        @Model.TenChuongTrinh
+                    </td>
+                    <td>
+                        @Model.TenChuongTrinhBangTiengAnh
+                    </td>
+                    <td>
+                        @Model.NamBatDauTuyenSinh
+                    </td>
+                    <td>
+                        @Model.TenCoSoDaoTaoNuocNgoai
+                    </td>
+                
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+        <h4 class="fw-bold" style="text-align:center">Bạn có chắc chắn muốn xóa không?</h4>
+
+        <form asp-action="Delete" asp-controller="ChuongTrinhDaoTao">
+            <input type="hidden" asp-for="IdChuongTrinhDaoTao" />
+            <div>
+                <input type="submit" value="Xoá" class="btn btn-danger" />
+                <a asp-action="Index" asp-controller="ChuongTrinhDaoTao" class="btn btn-secondary">Quay lại</a>
+            </div>
+            <div class="alert alert-warning" style="text-align:center">
+                <strong>Cảnh báo!</strong> Nếu bạn xoá, bạn không thể khôi phục lại được dữ liệu này.
+            </div>
+        </form>
+        </div>
+    </div>
+</body>
+
