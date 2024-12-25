@@ -501,6 +501,8 @@ namespace CTDT.Controllers
 
 
         [HttpPost]
+        //sử dụng IFormFile để làm việc với các tệp trong yêu cầu HTTP.
+
         public async Task<IActionResult> Index(IFormFile file)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);

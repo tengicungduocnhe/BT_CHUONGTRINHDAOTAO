@@ -5,6 +5,7 @@ namespace CTDT.API
 {
     public class ApiServices
     {
+        // khởi tạo dịch vụ
         IConfigurationRoot configuration = new ConfigurationBuilder()
                   .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                   .AddJsonFile("appsettings.json")
@@ -13,6 +14,8 @@ namespace CTDT.API
         // private readonly AuthenticationStateProvider _authenticationStateProvider;
         public ApiServices(HttpClient httpClient)
         {
+            //Khởi tạo HttpClient với URL cơ sở (base address) để các yêu cầu HTTP sẽ tự động sử dụng URL này.
+
             _httpClient = httpClient;
            _httpClient.BaseAddress = new Uri(configuration.GetConnectionString("API") ?? "http://14.0.22.12:8080");
           //   _httpClient.BaseAddress = new Uri(configuration.GetConnectionString("API") ?? "http://localhost:5224");
@@ -25,6 +28,7 @@ namespace CTDT.API
             if (lamda == null)
             {
                 apiPath = apiPath + "?lamda=\" \"";
+                // query string
             }
             else
             {
