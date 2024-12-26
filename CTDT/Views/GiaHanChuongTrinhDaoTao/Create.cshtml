@@ -8,30 +8,32 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-               
+                <!-- Vùng này có thể để trống hoặc dùng cho nội dung bổ sung -->
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/Home/Index">Home </a></li>
-                        <li class="breadcrumb-item"><a href="/GiaHanChuongTrinhDaoTao/Index">Index </a></li>
+                        <li class="breadcrumb-item"><a href="/Home/Index">Home </a></li> <!--breadcrumb-item Gán cho từng mục trong danh sách-->
+                        <li class="breadcrumb-item"><a href="/GiaHanChuongTrinhDaoTao/Index">Index </a></li> 
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
+
     <section id="multiple-column-form">
         <div class="row match-height">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header  bg-primary text-white text-center ">
-                        <h4 class="card-title">GIA HẠN CHƯƠNG TRÌNH ĐÀO TẠO </h4>
+                    <div class="card-header bg-primary text-white text-center ">
+                        <h4 class="card-title">GIA HẠN CHƯƠNG TRÌNH ĐÀO TẠO</h4> 
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                             <form asp-action="Create" id="form">
+                                <!-- Form dùng để gửi dữ liệu đến action Create -->
                                 <div class="row">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Hiển thị lỗi tổng quát nếu có -->
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label asp-for="IdGiaHanChuongTrinhDaoTao" class="control-label"></label>
@@ -39,6 +41,7 @@
                                             <span asp-validation-for="IdGiaHanChuongTrinhDaoTao" class="text-danger"></span>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label asp-for="IdChuongTrinhDaoTao" class="control-label"></label>
@@ -46,6 +49,7 @@
                                             <span asp-validation-for="IdChuongTrinhDaoTao" class="text-danger"></span>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label asp-for="SoQuyetDinhGiaHan" class="control-label"></label>
@@ -53,6 +57,7 @@
                                             <span asp-validation-for="SoQuyetDinhGiaHan" class="text-danger"></span>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label asp-for="NgayBanHanhVanBanGiaHan" class="control-label"></label>
@@ -60,6 +65,7 @@
                                             <span asp-validation-for="NgayBanHanhVanBanGiaHan" class="text-danger"></span>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label asp-for="GiaHanLanThu" class="control-label"></label>
@@ -67,11 +73,13 @@
                                             <span asp-validation-for="GiaHanLanThu" class="text-danger"></span>
                                         </div>
                                     </div>
+
+                                   
                                     <div class="col-12 d-flex justify-content-between">
                                         <a asp-action="Index" class="btn btn-secondary btn-lg shadow-sm" data-bs-toggle="tooltip" title="Quay lại trang danh sách">
-                                            <i class="bi bi-arrow-left-circle"></i> Quay lại
+                                            <i class="bi bi-arrow-left-circle"></i> Quay lại 
                                         </a>
-                                        <button type="submit" class="btn btn-primary me-1 mb-1">Xác nhận</button>
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Xác nhận</button> 
                                     </div>
                                 </div>
                             </form>
@@ -82,12 +90,15 @@
         </div>
     </section>
 </div>
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="https://cdn.jsdelivr.net/gh/kirito99152/search_select@latest/search_select.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    } <!-- Thêm script xử lý validation -->
+    <script src="https://cdn.jsdelivr.net/gh/kirito99152/search_select@latest/search_select.js"></script> 
     <script>
-        let select = new search_select("form");
-        select.IsNULL = true;
-        select.run();
+        let select = new search_select("form"); // Khởi tạo đối tượng search_select cho form
+        select.IsNULL = true; // Cho phép giá trị null trong lựa chọn
+        select.run(); // Chạy tính năng search select
     </script>
 }

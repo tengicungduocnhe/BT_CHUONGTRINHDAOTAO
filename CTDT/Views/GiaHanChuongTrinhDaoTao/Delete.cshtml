@@ -4,104 +4,110 @@
     ViewData["Title"] = "Delete";
 }
 
+<!-- Link các file CSS và JS cần thiết -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-dy+Dvhgi7KkKbP4qxFqDncdchCRO1GfBPOIQFxDb/WIOVQ5SWEphI8MNsxF9auhgGChlpS+nfsP24i7IbxNwOQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
     body {
-        position: relative;
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        padding-top: 70px;
-        color: #333;
-        height: 100vh;
-        overflow: hidden;
+        position: relative; /* Đặt vị trí tương đối cho body để các phần tử con có thể định vị */
+        background-size: cover; /* Nền được phủ đầy vùng chứa */
+        background-position: center; /* Nền được căn giữa */
+        background-attachment: fixed; /* Nền không cuộn theo nội dung */
+        background-repeat: no-repeat; /* Không lặp lại hình nền */
+        padding-top: 70px; /* Tạo khoảng trống trên để không bị che bởi header */
+        color: #333; /* Màu chữ mặc định là màu xám đậm */
+        height: 100vh; /* Chiều cao trang chiếm toàn bộ chiều cao màn hình */
+        overflow: hidden; /* Ẩn cuộn khi nội dung vượt quá */
     }
 
         body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            z-index: -1;
+            content: ""; /* Tạo một lớp phủ không có nội dung */
+            position: absolute; /* Định vị lớp phủ so với body */
+            top: 0; /* Gắn lớp phủ vào cạnh trên */
+            left: 0; /* Gắn lớp phủ vào cạnh trái */
+            right: 0; /* Gắn lớp phủ vào cạnh phải */
+            bottom: 0; /* Gắn lớp phủ vào cạnh dưới */
+            background: rgba(255, 255, 255, 0.2); /* Màu nền trắng trong suốt 20% */
+            backdrop-filter: blur(10px); /* Hiệu ứng làm mờ nền phía sau */
+            z-index: -1; /* Đặt lớp phủ dưới các phần tử khác */
         }
 
     .delete-container {
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        max-width: 800px;
-        margin: auto;
+        background-color: rgba(255, 255, 255, 0.9); /* Màu nền trắng với độ trong suốt 90% */
+        padding: 30px; /* Khoảng cách bên trong vùng chứa */
+        border-radius: 10px; /* Bo góc vùng chứa */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng mềm cho vùng chứa */
+        max-width: 800px; /* Chiều rộng tối đa của vùng chứa */
+        margin: auto; /* Canh giữa vùng chứa */
     }
 
     h1 {
-        font-size: 45px;
-        font-family: "Audiowide", sans-serif;
-        text-shadow: 3px 3px 3px #ababab;
-        text-align: center;
-        margin-bottom: 20px;
-        color: red;
+        font-size: 45px; 
+        font-family: "Audiowide", sans-serif; /* Phông chữ kiểu trang trí */
+        text-shadow: 3px 3px 3px #ababab; /* Hiệu ứng bóng chữ */
+        text-align: center; 
+        margin-bottom: 20px; /* Khoảng cách phía dưới */
+        color: red; 
     }
 
     h4 {
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 20px;
+        font-weight: bold; 
+        text-align: center; 
+        margin-bottom: 20px; /* Khoảng cách phía dưới */
     }
 
+
     .table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
+        font-family: arial, sans-serif; 
+        border-collapse: collapse; /* Gộp các đường viền bảng lại với nhau */
+        width: 100%; /* Chiều rộng bảng chiếm toàn bộ vùng chứa */
     }
 
     td, th {
-        border: 1px solid #dddddd;
-        text-align: center;
-        padding: 8px;
+        border: 1px solid #dddddd; /* Viền ô màu xám nhạt */
+        text-align: center; 
+        padding: 8px; /* Khoảng cách bên trong ô */
     }
 
     tr:nth-child(even) {
-        background-color: white;
+        background-color: white; 
     }
 
     thead th {
-        white-space: nowrap;
-        text-align: center;
+        white-space: nowrap; /* Ngăn không cho tiêu đề bị xuống dòng */
+        text-align: center; 
     }
+
 
     .btn-container {
-        text-align: center;
-        margin-top: 20px;
+        text-align: center; 
+        margin-top: 20px; /* Khoảng cách phía trên các nút */
     }
+
 
     .btn {
-        margin: 0 10px;
+        margin: 0 10px; /* Khoảng cách giữa các nút */
     }
 
+
     .alert-warning {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-        padding: 10px;
-        margin-top: 20px;
-        text-align: center;
+        background-color: #f8d7da; /* Nền màu đỏ nhạt */
+        color: #721c24; /* Màu chữ đỏ đậm */
+        border: 1px solid #f5c6cb; /* Viền màu đỏ nhạt */
+        padding: 10px; /* Khoảng cách bên trong cảnh báo */
+        margin-top: 20px; /* Khoảng cách phía trên cảnh báo */
+        text-align: center; 
     }
+
 </style>
 
 <div class="delete-container">
     <h5 class="card-title" style="text-align:center">
         GIA HẠN CHƯƠNG TRÌNH ĐÀO TẠO
-
     </h5>
     <h1>Xóa</h1>
     <hr />
@@ -126,13 +132,14 @@
     <hr />
     <h4>Bạn có chắc chắn muốn xóa không?</h4>
     <div class="btn-container">
+        <!-- Form gửi yêu cầu xóa -->
         <form asp-action="Delete" method="post" style="display: inline;">
             <input type="hidden" asp-for="IdGiaHanChuongTrinhDaoTao" />
             <input type="submit" value="Xóa" class="btn btn-danger" />
         </form>
         <a asp-action="Index" class="btn btn-secondary">Quay Lại</a>
     </div>
-    <div class="alert alert-warning">
+    <div class="alert alert-warning" >
         <strong>Cảnh báo!</strong> Nếu bạn xóa, bạn không thể khôi phục lại được dữ liệu này.
     </div>
 </div>

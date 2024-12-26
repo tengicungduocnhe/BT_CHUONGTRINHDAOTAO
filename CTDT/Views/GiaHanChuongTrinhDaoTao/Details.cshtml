@@ -3,12 +3,19 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    .btn-outline-primary:hover{
+        background-color:darkblue;
+    }
+</style>
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
+                <!-- Cột trống để căn chỉnh -->
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
+                <!-- Điều hướng breadcrumb -->
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/Home/Index">Home </a></li>
@@ -18,15 +25,18 @@
             </div>
         </div>
     </div>
+    <!-- Phần nội dung chính -->
     <section class="section">
         <div class="row match-height justify-content-center">
             <div class="col-lg-6 col-md-12">
                 <div class="card">
+                    <!-- Header của thẻ card -->
                     <div class="card-header bg-primary text-white text-center">
                         <h4 class="card-title">GIA HẠN CHƯƠNG TRÌNH ĐÀO TẠO</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
+                            <!-- Bảng hiển thị thông tin chi tiết -->
                             <table class="table table-bordered table-striped table-hover">
                                 <tbody>
                                     <tr>
@@ -53,6 +63,7 @@
                                 <button type="button" class="btn btn-outline-danger block" onclick="window.location.href = '@Url.Action("Delete", new {id = Model.IdGiaHanChuongTrinhDaoTao})'">
                                     Xoá
                                 </button>
+                                <!-- Modal xác nhận xóa -->
                                 <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog"
                                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
@@ -65,15 +76,19 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
+                                                <!-- Nội dung xác nhận -->
                                                 <p>Bạn muốn xóa ?</p>
                                             </div>
                                             <div class="modal-footer">
                                                 <form asp-action="Delete">
+                                                    <!-- Ẩn đi ID của bản ghi cần xóa -->
                                                     <input type="hidden" asp-for="IdGiaHanChuongTrinhDaoTao" />
+                                                    <!-- Nút đóng -->
                                                     <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
                                                         <i class="bx bx-x d-block d-sm-none"></i>
                                                         <span class="d-none d-sm-block">Close</span>
                                                     </button>
+                                                    <!-- Nút xác nhận xóa -->
                                                     <input type="submit" value="Delete" class="btn btn-danger" />
                                                 </form>
                                             </div>

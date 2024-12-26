@@ -5,96 +5,98 @@
 }
 
 <style>
+
     body {
-        position: relative;
-        background-image: url('https://lh6.googleusercontent.com/wkeQrgK5pTamYY8M618pFEEAcuQJjfbpmIE-Mhp46LBwqYjNOqClsFFWYY-FxA46hjHkmzNIK7v8Dnhw0KSiTUcwoOKKDywa1eqwFX...a4ACL');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        padding-top: 70px;
-        color: #333;
-        height: 100vh;
-        overflow: hidden;
+        position: relative; /* Đặt vị trí tương đối cho phần thân, giúp định vị các phần tử con */
+        background-size: cover; /* Ảnh nền phủ toàn bộ khu vực */
+        background-position: center; /* Ảnh nền căn giữa */
+        background-attachment: fixed; /* Ảnh nền cố định khi cuộn */
+        background-repeat: no-repeat; /* Ảnh nền không lặp */
+        padding-top: 70px; /* Thêm khoảng cách phía trên */
+        color: #333; /* Màu chữ mặc định */
+        height: 100vh; /* Chiều cao toàn màn hình */
+        overflow: hidden; /* Ẩn phần nội dung tràn ra */
     }
 
+
         body::before {
-            content: "";
-            position: absolute;
+            content: ""; /* Thêm phần tử giả (pseudo-element) trước phần thân */
+            position: absolute; /* Đặt vị trí tuyệt đối, phủ toàn bộ thân */
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            z-index: -1;
+            background: rgba(255, 255, 255, 0.2); /* Màu trắng mờ (độ trong suốt 20%) */
+            backdrop-filter: blur(10px); /* Hiệu ứng làm mờ phía sau */
+            z-index: -1; /* Đặt lớp này phía sau nội dung chính */
         }
 
+
     .delete-container {
-        background-color: rgba(255, 255, 255, 0.95);
-        padding: 40px;
-        border-radius: 15px;
-        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
-        margin: auto;
-        text-align: center;
-        width: auto;
-        max-width: 100%;
-        overflow-x: auto;
+        background-color: rgba(255, 255, 255, 0.95); /* Màu nền trắng với độ mờ nhẹ */
+        padding: 40px; /* Khoảng cách bên trong hộp */
+        border-radius: 15px; /* Bo góc cho hộp */
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng cho hộp */
+        margin: auto; /* Căn giữa hộp */
+        text-align: center; 
+        width: auto; /* Chiều rộng tự động */
+        max-width: 100%; /* Chiều rộng tối đa là toàn bộ màn hình */
+        overflow-x: auto; /* Hiển thị thanh cuộn ngang nếu nội dung tràn */
     }
 
     h1 {
-        font-size: 48px;
-        font-weight: bold;
-        color: #d9534f;
-        margin-bottom: 20px;
+        font-size: 48px; 
+        font-weight: bold; 
+        color: #d9534f; /* Màu chữ đỏ */
+        margin-bottom: 20px; /* Khoảng cách dưới */
     }
 
     h3 {
-        font-size: 20px;
-        margin-bottom: 20px;
-        color: #333;
+        font-size: 20px; 
+        margin-bottom: 20px; /* Khoảng cách dưới */
+        color: #333; /* Màu chữ xám đậm */
     }
 
     .table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
+        font-family: arial, sans-serif; 
+        border-collapse: collapse; /* Gộp đường viền giữa các ô */
+        width: 100%; /* Chiều rộng 100% của container */
     }
 
     td, th {
-        border: 1px solid #dddddd;
+        border: 1px solid #dddddd; /* Đường viền màu xám nhạt */
         text-align: center;
-        padding: 8px;
+        padding: 8px; /* Khoảng cách bên trong ô */
     }
 
     tr:nth-child(even) {
-        background-color: white;
+        background-color: white; 
     }
 
     thead th {
-        white-space: nowrap;
-        text-align: center;
+        white-space: nowrap; /* Không cho phép xuống dòng */
+        text-align: center; 
     }
 
     .btn-container {
-        margin-top: 30px;
+        margin-top: 30px; /* Khoảng cách phía trên */
     }
 
     .btn {
-        margin: 0 10px;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
+        margin: 0 10px; /* Khoảng cách hai bên nút */
+        padding: 10px 20px; /* Khoảng cách bên trong nút */
+        font-size: 16px; /* Kích thước chữ */
+        border-radius: 5px; /* Bo góc nút */
     }
 
     .alert-warning {
-        background-color: #fcebea;
-        color: #d9534f;
-        border: 1px solid #f5c6cb;
-        margin-top: 20px;
-        padding: 15px;
-        font-size: 16px;
-        border-radius: 5px;
+        background-color: #fcebea; /* Nền màu hồng nhạt */
+        color: #d9534f; /* Màu chữ đỏ */
+        border: 1px solid #f5c6cb; /* Đường viền màu hồng đậm */
+        margin-top: 20px; /* Khoảng cách phía trên */
+        padding: 15px; /* Khoảng cách bên trong */
+        font-size: 16px; /* Kích thước chữ */
+        border-radius: 5px; /* Bo góc hộp cảnh báo */
     }
 </style>
 

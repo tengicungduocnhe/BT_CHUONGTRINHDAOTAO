@@ -54,6 +54,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
+                                    <!--table-bordered	Thêm viền xung quanh bảng và giữa các ô dữ liệu.
+                                    table-striped	Tô màu nền xen kẽ cho các hàng để tăng tính dễ đọc.
+                                    table-hover	Thêm hiệu ứng thay đổi màu nền khi di chuột qua một hàng.-->
                                     <table class="table table-bordered table-striped table-hover">
                                         <tbody>
                                             <tr>
@@ -152,7 +155,10 @@
 
                                 </div>
                             </div>
-                           
+                            <!-- col-12	Cột chiếm toàn bộ chiều rộng container (12/12).
+                            d-flex	Kích hoạt Flexbox, giúp sắp xếp phần tử con linh hoạt.
+                            justify-content-start	Căn chỉnh phần tử con về phía trái (bắt đầu).
+                            gap-2	Tạo khoảng cách giữa các phần tử con là 0.5rem.-->
                                 <div class="col-12 d-flex justify-content-start gap-2">
                                     <button class="btn btn-outline-primary" onclick="window.location.href = '@Url.Action("Edit", new {id = Model.IdChuongTrinhDaoTao})'"><i class="fa-sharp-duotone fa-solid fa-user-pen"></i> Sửa</button>
                                 <button class="btn btn-outline-primary" onclick="window.location.href = '@Url.Action("Index")'">Quay Lại</button>
