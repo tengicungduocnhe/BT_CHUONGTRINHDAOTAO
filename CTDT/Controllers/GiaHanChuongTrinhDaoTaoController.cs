@@ -287,156 +287,265 @@ namespace CTDT.Controllers
 
 
         }
-        [HttpPost]
-        public IActionResult Receive_Excel(string jsonExcel)
-        {
-            try
-            {
-                List<List<string>> dataList = JsonConvert.DeserializeObject<List<List<string>>>(jsonExcel);
-                dataList.ForEach(s => {
-                    TbChuongTrinhDaoTao new_ = new TbChuongTrinhDaoTao();
-                    // new_.IdChuongTrinhDaoTao = Int32.Parse(s[0]);
-                    // new_.MaChuongTrinhDaoTao = s[1];
-                    // new_.IdNganhDaoTao = s[1];
-                });
-                string message = "Thành công";
-                return Accepted(Json(new { msg = message }));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(Json(new { msg = ex.Message, }));
-            }
-        }
-        [HttpGet]
-        public async Task<JsonResult> GetChartData(string type)
-        {
-            try
-            {
-                // Kiểm tra tham số 'type' có hợp lệ hay không
-                if (string.IsNullOrEmpty(type) ||
-                    !(type == "Số quyết định gia hạn" ||
-                        type == "Gia hạn lần thứ"))
-                {
-                    return Json(new { error = "Invalid type parameter." });
-                }
+        #region cmt
+        //[HttpPost]
+        //public IActionResult Receive_Excel(string jsonExcel)
+        //{
+        //    try
+        //    {
+        //        List<List<string>> dataList = JsonConvert.DeserializeObject<List<List<string>>>(jsonExcel);
+        //        dataList.ForEach(s => {
+        //            TbChuongTrinhDaoTao new_ = new TbChuongTrinhDaoTao();
+        //            // new_.IdChuongTrinhDaoTao = Int32.Parse(s[0]);
+        //            // new_.MaChuongTrinhDaoTao = s[1];
+        //            // new_.IdNganhDaoTao = s[1];
+        //        });
+        //        string message = "Thành công";
+        //        return Accepted(Json(new { msg = message }));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(Json(new { msg = ex.Message, }));
+        //    }
+        //}
+        //[HttpGet]
+        //public async Task<JsonResult> GetChartData(string type)
+        //{
+        //    try
+        //    {
+        //        // Kiểm tra tham số 'type' có hợp lệ hay không
+        //        if (string.IsNullOrEmpty(type) ||
+        //            !(type == "Số quyết định gia hạn" ||
+        //                type == "Gia hạn lần thứ"))
+        //        {
+        //            return Json(new { error = "Invalid type parameter." });
+        //        }
 
-                // Lấy dữ liệu từ API
-                var data = ApiServices_.GetAll<TbGiaHanChuongTrinhDaoTao>("/api/ctdt/GiaHanChuongTrinhDaoTao");
-                var dataList = await data;
-                List<TbChuongTrinhDaoTao> chuongTrinhDaoTaos = await ApiServices_.GetAll<TbChuongTrinhDaoTao>("/api/ctdt/ChuongTrinhDaoTao");
-                List<TbGiaHanChuongTrinhDaoTao> giaHanList = await ApiServices_.GetAll<TbGiaHanChuongTrinhDaoTao>("/api/ctdt/GiaHanChuongTrinhDaoTao");
+        //        // Lấy dữ liệu từ API
+        //        var data = ApiServices_.GetAll<TbGiaHanChuongTrinhDaoTao>("/api/ctdt/GiaHanChuongTrinhDaoTao");
+        //        var dataList = await data;
+        //        List<TbChuongTrinhDaoTao> chuongTrinhDaoTaos = await ApiServices_.GetAll<TbChuongTrinhDaoTao>("/api/ctdt/ChuongTrinhDaoTao");
+        //        List<TbGiaHanChuongTrinhDaoTao> giaHanList = await ApiServices_.GetAll<TbGiaHanChuongTrinhDaoTao>("/api/ctdt/GiaHanChuongTrinhDaoTao");
 
-                // Gán navigation property
-                giaHanList.ForEach(item =>
-                {
-                    item.IdChuongTrinhDaoTaoNavigation = chuongTrinhDaoTaos.FirstOrDefault(t => t.IdChuongTrinhDaoTao == item.IdChuongTrinhDaoTao);
-                });
-                // Kiểm tra loại biểu đồ là "Số quyết định gia hạn"
-                if (type == "Số quyết định gia hạn")
-                {
-                    var resultFiltered = dataList
-                        .GroupBy(s => s.SoQuyetDinhGiaHan ?? "Không xác định")
-                        .Select(g => new
-                        {
-                            TenChuongTrinh = g.Key,
-                            Value = g.Count()
-                        })
-                        .ToList();
+        //        // Gán navigation property
+        //        giaHanList.ForEach(item =>
+        //        {
+        //            item.IdChuongTrinhDaoTaoNavigation = chuongTrinhDaoTaos.FirstOrDefault(t => t.IdChuongTrinhDaoTao == item.IdChuongTrinhDaoTao);
+        //        });
+        //        // Kiểm tra loại biểu đồ là "Số quyết định gia hạn"
+        //        if (type == "Số quyết định gia hạn")
+        //        {
+        //            var resultFiltered = dataList
+        //                .GroupBy(s => s.SoQuyetDinhGiaHan ?? "Không xác định")
+        //                .Select(g => new
+        //                {
+        //                    TenChuongTrinh = g.Key,
+        //                    Value = g.Count()
+        //                })
+        //                .ToList();
 
-                    return Json(resultFiltered);
-                }
-                else if (type == "Gia hạn lần thứ")
-                {
-                    var resultFiltered = giaHanList.Select(s => new
-                    {
-                        TenChuongTrinh = s.IdChuongTrinhDaoTaoNavigation?.TenChuongTrinh ?? "Không xác định",
-                        Value = s.GiaHanLanThu ?? 0
-                    }).ToList();
+        //            return Json(resultFiltered);
+        //        }
+        //        else if (type == "Gia hạn lần thứ")
+        //        {
+        //            var resultFiltered = giaHanList.Select(s => new
+        //            {
+        //                TenChuongTrinh = s.IdChuongTrinhDaoTaoNavigation?.TenChuongTrinh ?? "Không xác định",
+        //                Value = s.GiaHanLanThu ?? 0
+        //            }).ToList();
 
-                    return Json(resultFiltered);
-                }
+        //            return Json(resultFiltered);
+        //        }
 
-                return Json(new { error = "Type not handled." });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { error = ex.Message });
-            }
-        }
+        //        return Json(new { error = "Type not handled." });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { error = ex.Message });
+        //    }
+        //}
+        //[HttpPost]
+        //public async Task<IActionResult> Index(IFormFile file)
+        //{
+        //    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        //    if (file != null && file.Length > 0)
+        //    {
+        //        // Đảm bảo thư mục Uploads tồn tại
+        //        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+        //        if (!Directory.Exists(uploadsFolder))
+        //        {
+        //            Directory.CreateDirectory(uploadsFolder);
+        //        }
+
+        //        // Tạo đường dẫn file và đảm bảo tên file hợp lệ
+        //        var filePath = Path.Combine(uploadsFolder, Path.GetFileName(file.FileName));
+
+        //        // Lưu file vào thư mục Uploads
+        //        using (var stream = new FileStream(filePath, FileMode.Create))
+        //        {
+        //            await file.CopyToAsync(stream);
+        //        }
+
+        //        // Đọc file Excel sau khi đã lưu
+        //        try
+        //        {
+        //            using (var stream = System.IO.File.Open(filePath, FileMode.Open, FileAccess.Read))
+        //            {
+        //                using (var reader = ExcelReaderFactory.CreateReader(stream))
+        //                {
+        //                    bool isHeaderSkipped = false;
+        //                    while (reader.Read())
+        //                    {
+        //                        // Bỏ qua header
+        //                        if (!isHeaderSkipped)
+        //                        {
+        //                            isHeaderSkipped = true;
+        //                            continue;
+        //                        }
+
+        //                        // Đọc từng dòng dữ liệu
+        //                        TbGiaHanChuongTrinhDaoTao tb = new TbGiaHanChuongTrinhDaoTao
+        //                        {
+        //                            IdGiaHanChuongTrinhDaoTao = reader.GetValue(1) != null ? Convert.ToInt32(reader.GetValue(1).ToString()) : 0,
+        //                            IdChuongTrinhDaoTao = reader.GetValue(2) != null ? Convert.ToInt32(reader.GetValue(2).ToString()) : 0,
+
+        //                            SoQuyetDinhGiaHan = reader.GetValue(3) != null ? reader.GetValue(3).ToString() : null,
+
+        //                            NgayBanHanhVanBanGiaHan = reader.GetValue(4) != null ? DateOnly.FromDateTime(DateTime.Parse(reader.GetValue(4).ToString())) : (DateOnly?)null,
+        //                            GiaHanLanThu = reader.GetValue(5) != null ? Convert.ToInt32(reader.GetValue(5).ToString()) : 0
+
+        //                        };
+
+
+        //                        _dbcontext.TbGiaHanChuongTrinhDaoTaos.Add(tb);
+        //                        await ApiServices_.Create<TbGiaHanChuongTrinhDaoTao>("/api/ctdt/GiaHanChuongTrinhDaoTao", tb);
+
+        //                    }
+        //                    await _dbcontext.SaveChangesAsync();
+
+        //                }
+        //            }
+        //            TempData["Success"] = "File đã được import thành công!";
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            var errorMessage = ex.InnerException?.Message ?? ex.Message;
+        //            Console.WriteLine(errorMessage);
+        //            TempData["Error"] = "Lỗi khi lưu dữ liệu: " + errorMessage;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        TempData["Error"] = "Vui lòng chọn file để upload.";
+        //    }
+
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        #endregion
+
         [HttpPost]
         public async Task<IActionResult> Index(IFormFile file)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            if (file != null && file.Length > 0)
-            {
-                // Đảm bảo thư mục Uploads tồn tại
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
-
-                // Tạo đường dẫn file và đảm bảo tên file hợp lệ
-                var filePath = Path.Combine(uploadsFolder, Path.GetFileName(file.FileName));
-
-                // Lưu file vào thư mục Uploads
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                // Đọc file Excel sau khi đã lưu
-                try
-                {
-                    using (var stream = System.IO.File.Open(filePath, FileMode.Open, FileAccess.Read))
-                    {
-                        using (var reader = ExcelReaderFactory.CreateReader(stream))
-                        {
-                            bool isHeaderSkipped = false;
-                            while (reader.Read())
-                            {
-                                // Bỏ qua header
-                                if (!isHeaderSkipped)
-                                {
-                                    isHeaderSkipped = true;
-                                    continue;
-                                }
-
-                                // Đọc từng dòng dữ liệu
-                                TbGiaHanChuongTrinhDaoTao tb = new TbGiaHanChuongTrinhDaoTao
-                                {
-                                    IdGiaHanChuongTrinhDaoTao = reader.GetValue(1) != null ? Convert.ToInt32(reader.GetValue(1).ToString()) : 0,
-                                    IdChuongTrinhDaoTao = reader.GetValue(2) != null ? Convert.ToInt32(reader.GetValue(2).ToString()) : 0,
-                                    
-                                    SoQuyetDinhGiaHan = reader.GetValue(3) != null ? reader.GetValue(3).ToString() : null,
-
-                                    NgayBanHanhVanBanGiaHan = reader.GetValue(4) != null ? DateOnly.FromDateTime(DateTime.Parse(reader.GetValue(4).ToString())) : (DateOnly?)null,
-                                    GiaHanLanThu = reader.GetValue(5) != null ? Convert.ToInt32(reader.GetValue(5).ToString()) : 0
-                                    
-                                };
-
-
-                                _dbcontext.TbGiaHanChuongTrinhDaoTaos.Add(tb);
-                                await ApiServices_.Create<TbGiaHanChuongTrinhDaoTao>("/api/ctdt/GiaHanChuongTrinhDaoTao", tb);
-
-                            }
-                            await _dbcontext.SaveChangesAsync();
-
-                        }
-                    }
-                    TempData["Success"] = "File đã được import thành công!";
-                }
-                catch (Exception ex)
-                {
-                    var errorMessage = ex.InnerException?.Message ?? ex.Message;
-                    Console.WriteLine(errorMessage);
-                    TempData["Error"] = "Lỗi khi lưu dữ liệu: " + errorMessage;
-                }
-            }
-            else
+            // Kiểm tra nếu file không tồn tại
+            if (file == null || file.Length == 0)
             {
                 TempData["Error"] = "Vui lòng chọn file để upload.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Kiểm tra định dạng file
+            var fileExtension = Path.GetExtension(file.FileName).ToLower();
+            if (fileExtension != ".xls" && fileExtension != ".xlsx")
+            {
+                TempData["Error"] = "Chỉ chấp nhận file Excel (.xls, .xlsx).";
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Tạo thư mục Uploads nếu chưa tồn tại
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            // Đường dẫn file
+            var filePath = Path.Combine(uploadsFolder, Path.GetFileName(file.FileName));
+
+            // Lưu file tạm thời
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            // Danh sách để lưu dữ liệu
+            var dataList = new List<TbGiaHanChuongTrinhDaoTao>();
+
+            try
+            {
+                // Đọc file Excel
+                using (var stream = System.IO.File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    using (var reader = ExcelReaderFactory.CreateReader(stream))
+                    {
+                        bool isHeaderSkipped = false;
+                        while (reader.Read())
+                        {
+                            // Bỏ qua dòng tiêu đề
+                            if (!isHeaderSkipped)
+                            {
+                                isHeaderSkipped = true;
+                                continue;
+                            }
+
+                            // Đọc dữ liệu từng dòng
+                            var tb = new TbGiaHanChuongTrinhDaoTao
+                            {
+                                IdGiaHanChuongTrinhDaoTao = reader.GetValue(1) != null ? Convert.ToInt32(reader.GetValue(1).ToString()) : 0,
+                                IdChuongTrinhDaoTao = reader.GetValue(2) != null ? Convert.ToInt32(reader.GetValue(2).ToString()) : 0,
+
+                                SoQuyetDinhGiaHan = reader.GetValue(3) != null ? reader.GetValue(3).ToString() : null,
+
+                                NgayBanHanhVanBanGiaHan = reader.GetValue(4) != null ? DateOnly.FromDateTime(DateTime.Parse(reader.GetValue(4).ToString())) : (DateOnly?)null,
+                                GiaHanLanThu = reader.GetValue(5) != null ? Convert.ToInt32(reader.GetValue(5).ToString()) : 0
+                            };
+
+                            dataList.Add(tb);
+                        }
+                    }
+                }
+
+                // Lưu dữ liệu vào cơ sở dữ liệu trong một lần
+                if (dataList.Any())
+                {
+                    await _dbcontext.TbGiaHanChuongTrinhDaoTaos.AddRangeAsync(dataList);
+                    await _dbcontext.SaveChangesAsync();
+
+                    // Đồng bộ dữ liệu với API
+                    foreach (var item in dataList)
+                    {
+                        await ApiServices_.Create<TbGiaHanChuongTrinhDaoTao>("/api/ctdt/GiaHanChuongTrinhDaoTao", item);
+                    }
+                }
+
+                TempData["Success"] = "File đã được import thành công!";
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = ex.InnerException?.Message ?? ex.Message;
+                Console.WriteLine(errorMessage);
+                TempData["Error"] = "Lỗi khi xử lý dữ liệu: " + errorMessage;
+            }
+            finally
+            {
+                // Xóa file tạm sau khi xử lý
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
             }
 
             return RedirectToAction(nameof(Index));
