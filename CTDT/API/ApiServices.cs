@@ -14,11 +14,13 @@ namespace CTDT.API
         // private readonly AuthenticationStateProvider _authenticationStateProvider;
         public ApiServices(HttpClient httpClient)
         {
-            //Khởi tạo HttpClient với URL cơ sở (base address) để các yêu cầu HTTP sẽ tự động sử dụng URL này.
+            //Khởi tạo HttpClient với URL cơ sở (base address) để các yêu cầu HTTP sẽ tự động sử dụng URL này.   10.0.28.54
 
             _httpClient = httpClient;
-           _httpClient.BaseAddress = new Uri(configuration.GetConnectionString("API") ?? "http://14.0.22.12:8080");
-          //   _httpClient.BaseAddress = new Uri(configuration.GetConnectionString("API") ?? "http://localhost:5224");
+         _httpClient.BaseAddress = new Uri(configuration.GetConnectionString("API") ?? "http://14.0.22.12:8080");
+           // _httpClient.BaseAddress = new Uri(configuration.GetConnectionString("API") ?? "http://10.0.28.54:8080");
+
+            //   _httpClient.BaseAddress = new Uri(configuration.GetConnectionString("API") ?? "http://localhost:5224");
 
         }
         public async Task<List<T>> GetAll<T>(string apiPath, string lamda = null)

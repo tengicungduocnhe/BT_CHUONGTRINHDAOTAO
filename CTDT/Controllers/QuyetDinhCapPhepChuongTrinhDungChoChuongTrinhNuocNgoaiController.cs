@@ -415,79 +415,188 @@ namespace CTDT.Controllers
         //{
         //    return View();
         //}
+
+        #region cmt
+        //[HttpPost]
+        //public async Task<IActionResult> Index(IFormFile file)
+        //{
+        //    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        //    if (file != null && file.Length > 0)
+        //    {
+        //        // Đảm bảo thư mục Uploads tồn tại
+        //        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+        //        if (!Directory.Exists(uploadsFolder))
+        //        {
+        //            Directory.CreateDirectory(uploadsFolder);
+        //        }
+
+        //        // Tạo đường dẫn file và đảm bảo tên file hợp lệ
+        //        var filePath = Path.Combine(uploadsFolder, Path.GetFileName(file.FileName));
+
+        //        // Lưu file vào thư mục Uploads
+        //        using (var stream = new FileStream(filePath, FileMode.Create))
+        //        {
+        //            await file.CopyToAsync(stream);
+        //        }
+
+        //        // Đọc file Excel sau khi đã lưu
+        //        try
+        //        {
+        //            using (var stream = System.IO.File.Open(filePath, FileMode.Open, FileAccess.Read))
+        //            {
+        //                using (var reader = ExcelReaderFactory.CreateReader(stream))
+        //                {
+        //                    bool isHeaderSkipped = false;
+        //                    while (reader.Read())
+        //                    {
+        //                        // Bỏ qua header
+        //                        if (!isHeaderSkipped)
+        //                        {
+        //                            isHeaderSkipped = true;
+        //                            continue;
+        //                        }
+
+        //                        // Đọc từng dòng dữ liệu
+        //                        TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai tb = new TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai
+        //                        {
+        //                            IdQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai = reader.GetValue(1) != null ? Convert.ToInt32(reader.GetValue(1).ToString()) : 0,
+        //                            IdChuongTrinhDaoTao = reader.GetValue(2) != null ? Convert.ToInt32(reader.GetValue(2).ToString()) : 0,
+        //                            IdLoaiQuyetDinh = reader.GetValue(3) != null ? Convert.ToInt32(reader.GetValue(3).ToString()) : 0,
+        //                            SoQuyetDinh = reader.GetValue(4) != null ? reader.GetValue(4).ToString() : null,
+        //                            NgayBanHanhQuyetDinh = reader.GetValue(5) != null ? DateOnly.FromDateTime(DateTime.Parse(reader.GetValue(5).ToString())) : (DateOnly?)null,
+        //                            IdHinhThucDaoTao = reader.GetValue(6) != null ? Convert.ToInt32(reader.GetValue(6).ToString()) : 0
+
+        //                        };
+
+
+        //                        _dbcontext.TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoais.Add(tb);
+        //                        await ApiServices_.Create<TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai>("/api/ctdt/QuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai", tb);
+
+        //                    }
+        //                    await _dbcontext.SaveChangesAsync();
+
+        //                }
+        //            }
+        //            TempData["Success"] = "File đã được import thành công!";
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            var errorMessage = ex.InnerException?.Message ?? ex.Message;
+        //            Console.WriteLine(errorMessage);
+        //            TempData["Error"] = "Lỗi khi lưu dữ liệu: " + errorMessage;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        TempData["Error"] = "Vui lòng chọn file để upload.";
+        //    }
+
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+
+        #endregion
         [HttpPost]
         public async Task<IActionResult> Index(IFormFile file)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            if (file != null && file.Length > 0)
-            {
-                // Đảm bảo thư mục Uploads tồn tại
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
-
-                // Tạo đường dẫn file và đảm bảo tên file hợp lệ
-                var filePath = Path.Combine(uploadsFolder, Path.GetFileName(file.FileName));
-
-                // Lưu file vào thư mục Uploads
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                // Đọc file Excel sau khi đã lưu
-                try
-                {
-                    using (var stream = System.IO.File.Open(filePath, FileMode.Open, FileAccess.Read))
-                    {
-                        using (var reader = ExcelReaderFactory.CreateReader(stream))
-                        {
-                            bool isHeaderSkipped = false;
-                            while (reader.Read())
-                            {
-                                // Bỏ qua header
-                                if (!isHeaderSkipped)
-                                {
-                                    isHeaderSkipped = true;
-                                    continue;
-                                }
-
-                                // Đọc từng dòng dữ liệu
-                                TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai tb = new TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai
-                                {
-                                    IdQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai = reader.GetValue(1) != null ? Convert.ToInt32(reader.GetValue(1).ToString()) : 0,
-                                    IdChuongTrinhDaoTao = reader.GetValue(2) != null ? Convert.ToInt32(reader.GetValue(2).ToString()) : 0,
-                                    IdLoaiQuyetDinh = reader.GetValue(3) != null ? Convert.ToInt32(reader.GetValue(3).ToString()) : 0,
-                                    SoQuyetDinh = reader.GetValue(4) != null ? reader.GetValue(4).ToString() : null,
-                                    NgayBanHanhQuyetDinh = reader.GetValue(5) != null ? DateOnly.FromDateTime(DateTime.Parse(reader.GetValue(5).ToString())) : (DateOnly?)null,
-                                    IdHinhThucDaoTao = reader.GetValue(6) != null ? Convert.ToInt32(reader.GetValue(6).ToString()) : 0
-                                    
-                                };
-
-
-                                _dbcontext.TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoais.Add(tb);
-                                await ApiServices_.Create<TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai>("/api/ctdt/QuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai", tb);
-
-                            }
-                            await _dbcontext.SaveChangesAsync();
-
-                        }
-                    }
-                    TempData["Success"] = "File đã được import thành công!";
-                }
-                catch (Exception ex)
-                {
-                    var errorMessage = ex.InnerException?.Message ?? ex.Message;
-                    Console.WriteLine(errorMessage);
-                    TempData["Error"] = "Lỗi khi lưu dữ liệu: " + errorMessage;
-                }
-            }
-            else
+            // Kiểm tra nếu file không tồn tại
+            if (file == null || file.Length == 0)
             {
                 TempData["Error"] = "Vui lòng chọn file để upload.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Kiểm tra định dạng file
+            var fileExtension = Path.GetExtension(file.FileName).ToLower();
+            if (fileExtension != ".xls" && fileExtension != ".xlsx")
+            {
+                TempData["Error"] = "Chỉ chấp nhận file Excel (.xls, .xlsx).";
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Tạo thư mục Uploads nếu chưa tồn tại
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            // Đường dẫn file
+            var filePath = Path.Combine(uploadsFolder, Path.GetFileName(file.FileName));
+
+            // Lưu file tạm thời
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            // Danh sách để lưu dữ liệu
+            var dataList = new List<TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai>();
+
+            try
+            {
+                // Đọc file Excel
+                using (var stream = System.IO.File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    using (var reader = ExcelReaderFactory.CreateReader(stream))
+                    {
+                        bool isHeaderSkipped = false;
+                        while (reader.Read())
+                        {
+                            // Bỏ qua dòng tiêu đề
+                            if (!isHeaderSkipped)
+                            {
+                                isHeaderSkipped = true;
+                                continue;
+                            }
+
+                            // Đọc dữ liệu từng dòng
+                            var tb = new TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai
+                            {
+                                IdQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai = reader.GetValue(1) != null ? Convert.ToInt32(reader.GetValue(1).ToString()) : 0,
+                                IdChuongTrinhDaoTao = reader.GetValue(2) != null ? Convert.ToInt32(reader.GetValue(2).ToString()) : 0,
+                                IdLoaiQuyetDinh = reader.GetValue(3) != null ? Convert.ToInt32(reader.GetValue(3).ToString()) : 0,
+                                SoQuyetDinh = reader.GetValue(4) != null ? reader.GetValue(4).ToString() : null,
+                                NgayBanHanhQuyetDinh = reader.GetValue(5) != null ? DateOnly.FromDateTime(DateTime.Parse(reader.GetValue(5).ToString())) : (DateOnly?)null,
+                                IdHinhThucDaoTao = reader.GetValue(6) != null ? Convert.ToInt32(reader.GetValue(6).ToString()) : 0
+                            };
+
+                            dataList.Add(tb);
+                        }
+                    }
+                }
+
+                // Lưu dữ liệu vào cơ sở dữ liệu trong một lần
+                if (dataList.Any())
+                {
+                    await _dbcontext.TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoais.AddRangeAsync(dataList);
+                    await _dbcontext.SaveChangesAsync();
+
+                    // Đồng bộ dữ liệu với API
+                    foreach (var item in dataList)
+                    {
+                        await ApiServices_.Create<TbQuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai>("/api/ctdt/QuyetDinhCapPhepChuongTrinhDungChoChuongTrinhNuocNgoai", item);
+                    }
+                }
+
+                TempData["Success"] = "File đã được import thành công!";
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = ex.InnerException?.Message ?? ex.Message;
+                Console.WriteLine(errorMessage);
+                TempData["Error"] = "Lỗi khi xử lý dữ liệu: " + errorMessage;
+            }
+            finally
+            {
+                // Xóa file tạm sau khi xử lý
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
             }
 
             return RedirectToAction(nameof(Index));
